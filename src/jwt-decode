@@ -1,0 +1,14 @@
+// import jwtDecode from 'jwt-decode';
+
+// useEffect(() => {
+//   const userData = JSON.parse(localStorage.getItem('user'));
+//   if (userData && userData.token) {
+//     const decoded = jwtDecode(userData.token);
+//     const now = Date.now() / 1000;
+//     if (decoded.exp > now) {
+//       navigate(userData.role === 'admin' ? '/admin' : '/user');
+//     } else {
+//       localStorage.removeItem('user');
+//     }
+//   }
+// }, []);

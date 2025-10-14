@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+/*  Sirf Navbar ke liye custom scrollbar */
+.Navbar {
+  scrollbar-width: thin;           /* Firefox */
+  scrollbar-color: gray white; 
+  overflow-y: auto;                /* Ensure scrolling */
+}
+
+.Navbar::-webkit-scrollbar {
+  width: 3px;    
+}
+
+.Navbar::-webkit-scrollbar-track {
+  background: white;     
+  border-radius: 10px;
+}
+
+.Navbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgb(0, 0, 0));
+  border-radius: 10px;
+}
+
+.Navbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, black);
+}
+
+
+html,body{
+  scroll-behavior: smooth;
+}
+
+
