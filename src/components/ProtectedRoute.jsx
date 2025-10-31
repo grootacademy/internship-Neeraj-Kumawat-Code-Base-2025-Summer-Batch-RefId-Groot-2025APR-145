@@ -42,18 +42,18 @@ const ProtectedRoute = ({ allowedRoles }) => {
   const maxSessionTime = 2 * 60 * 60 * 1000; // 2 hours
   const now = Date.now();
 
-  // // Auto logout if no user OR expired session
-  // if (!user || !token || !loginTime || now - loginTime > maxSessionTime) {
-  //   localStorage.removeItem("user");
-  //   localStorage.removeItem("token");
-  //   localStorage.removeItem("loginTime");
-  //   return <Navigate to="/" replace />;
-  // }
+  // Auto logout if no user OR expired session
+  if (!user || !token || !loginTime || now - loginTime > maxSessionTime) {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("loginTime");
+    return <Navigate to="/" replace />;
+  }
 
-  // // Role-based protection
-  // if (!allowedRoles.includes(user.role)) {
-  //   return <Navigate to="/unauthorized" replace />;
-  // }
+  // Role-based protection
+  if (!allowedRoles.includes(user.role)) {
+    return <Navigate to="/unauthorized" replace />;
+  }
 
   return <Outlet />;
 };

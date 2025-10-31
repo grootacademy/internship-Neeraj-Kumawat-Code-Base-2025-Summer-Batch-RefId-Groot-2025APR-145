@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { FaRegStar } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
-import { CiMenuKebab } from "react-icons/ci";
 import axios from 'axios';
+import { CiMenuKebab } from "react-icons/ci";
+import { FiMessageSquare } from "react-icons/fi";
+import { FaCertificate } from "react-icons/fa";
+import { MdBlock } from "react-icons/md";
+import { RiUserUnfollowLine } from "react-icons/ri";
+import { MdDownload } from "react-icons/md";
 
 function Users_info() {
   const navigate = useNavigate();
   const [usersData, setUsersData] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
   const [Ismenuopen, setIsmenuopen] = useState(false);
+  const [toglestate, settoglestate] = useState(false)
+  const [indexmenu, setindexmenu] = useState("")
   // Fetch users
   const fetchUsersFromDB = async () => {
     try {
@@ -54,6 +61,12 @@ function Users_info() {
       setUsersData(filtered);
     }
   };
+
+  let togelmenu = (index) => {
+    settoglestate(!toglestate)
+    setindexmenu(index)
+
+  }
 
   return (
     <div>
@@ -112,18 +125,18 @@ function Users_info() {
               <td className="p-5 text-center text-2xl text-blue-500 font-bold">Action</td>
             </tr>
           </thead>
-          <tbody>
+          <tbody className='relative'>
             {usersData.length === 0 ? (
               <tr>
                 <td colSpan="7" className="text-center py-10 text-gray-500">No users found.</td>
               </tr>
             ) : (
-              usersData.map((user) => (
-                <tr className="bg-white" key={user._id}>
+              usersData.map((user, index) => (
+                <tr className="bg-white " key={user._id}>
                   <td className="flex gap-5 items-center p-2">
                     <input type="checkbox" />
                     <h1 className="px-4 py-3 rounded bg-red-300 text-white">
-                      {user.fname.slice(0,1)}
+                      {user.fname.slice(0, 1)}
                     </h1>
                     <div className="flex flex-col">
                       <p className="text-blue-500 pb-1">{user.fname} {user.lname}</p>
@@ -132,13 +145,40 @@ function Users_info() {
                   </td>
                   <td className="text-start">{user.email}</td>
                   <td className="text-center">
-                  {user.date}
+                    {user.date}
                   </td>
                   <td className="text-center capitalize">{user.courseName || 'user'}</td>
                   <td className="text-center capitalize text-green-500">{user.paymentId ? "success" : "pending"}</td>
+                  <td className="text-center capitalize text-green-500">{user.paymentId ? "success" : "pending"}</td>
                   <td className="text-center">₹{user.totalAmount || '0.00'}</td>
-                  <td className="text-center">
-                    <CiMenuKebab className="text-2xl mx-auto cursor-pointer" />
+                  <td className="text-center relative">
+                    <CiMenuKebab onClick={() => { togelmenu(index) }} className="text-2xl mx-auto cursor-pointer" />
+                    {
+                      indexmenu == index &&
+                      toglestate &&
+                      <>
+                        <div className="top-0 right-10 w-52 h-auto absolute rounded-2xl bg-white shadow-2xl shadow-black">
+                          {/* <CiMenuKebab onClick={() => { togelmenu(index) }} className="text-2xl mx-auto cursor-pointer" /> */}
+                          <ul className="text-start p-5 space-y-3 text-gray-700">
+                            <li className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
+                              <FiMessageSquare /> Message
+                            </li>
+                            <li className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
+                              <FaCertificate /> Give Certification
+                            </li>
+                            <li className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
+                              <RiUserUnfollowLine /> Revoke Access
+                            </li>
+                            <li className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
+                              <MdBlock /> Mark Inactive in Course
+                            </li>
+                            <li className="flex items-center gap-2 cursor-pointer hover:text-blue-600">
+                              <MdDownload /> Download Receipt
+                            </li>
+                          </ul>
+                        </div>
+                      </>
+                    }
                   </td>
                 </tr>
               ))
@@ -159,7 +199,7 @@ function Users_info() {
                 <li className="flex gap-4 items-center">
                   <input type="checkbox" />
                   <h1 className="px-4 py-3 rounded bg-red-300 text-white">
-                    {user.fname.slice(0,1)}
+                    {user.fname.slice(0, 1)}
                   </h1>
                   <div className="flex flex-col">
                     <p className="text-blue-500 pb-1">{user.fname} {user.lname}</p>
@@ -179,7 +219,7 @@ function Users_info() {
               {
                 Ismenuopen && (
                   <div className="absolute top-20 right-5 bg-black border w-40 p-3 rounded shadow">
-                    <ul className="flex flex-col gap-3">  
+                    <ul className="flex flex-col gap-3">
                       <li className="text-sm capitalize">Edit</li>
                       <li className="text-sm capitalize">Delete</li>
                     </ul>

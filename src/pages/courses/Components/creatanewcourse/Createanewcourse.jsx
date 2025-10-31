@@ -30,7 +30,7 @@ function Createanewcourse() {
     let handlesubmit = () => {
         
         if (!inputdata.Coursename || !inputdata.Description || !inputdata.Category ) {
-            alert("❌ Please fill all required fields");
+            alert(" Please fill all required fields");
             return;
         }
         if (!Termcondication) {

@@ -21,7 +21,7 @@ const Checkout = () => {
     state: "",
     pincode: "",
     status: "success",
-    totalAmount: totleamountprice,
+    totalAmount: totleamountprice +10,
   });
 
   const handleChange = (e) => {
@@ -98,7 +98,7 @@ const Checkout = () => {
             ,
           });
         } catch (error) {
-          console.log("❌ Error saving checkout data:", error);
+          console.log(" Error saving checkout data:", error);
           alert(" Payment was successful, but data saving failed.");
         }
       },
@@ -162,7 +162,7 @@ const Checkout = () => {
                     className="border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400"
                     value={formData[name]}
                     onChange={handleChange}
-                    disabled={disabl}  //  Fixed line
+                    disabled={disabl}  
                     required
                   />
                 </div>
@@ -200,9 +200,20 @@ const Checkout = () => {
             <p><strong>Description:</strong> {data.Description}</p>
             <p><strong>Duration:</strong> {data.Course_Duration} {data.Duration_Type}</p>
             <p><strong>Course Type:</strong> {data.CourseType}</p>
-            <p className="text-lg font-bold text-blue-600">
-              Price: ₹{data.Effectiveprice}
-            </p>
+           
+               
+                <div className="text-sm space-y-2">
+                    <h3 className="font-semibold text-gray-700">PRICE DETAILS</h3>
+                    {/* <div className="flex justify-between"><span>Internet Handling</span><span>₹ 41</span></div> */}
+                    {/* <div className="flex justify-between"><span>Amount Payable</span><span>₹ 1,551</span></div> */}
+                    <div className="flex justify-between"><span>Course Price</span><span>₹ {data.CruntPrice}-{data.Discountrice}={amount}</span></div>
+                    <div className="flex justify-between"><span>G.S.T. (18%)</span><span>+ ₹ {incgst}</span></div>
+                    {/* <div className="flex justify-between"><span>Discount</span><span>- ₹ {data.Discountrice}</span></div> */}
+                    <div className="flex justify-between"><span>Platform Fee</span><span>+ ₹ 10</span></div>
+                    <div className="flex justify-between"><span>Totle Fees</span><span>{totleamountprice+10}</span></div>
+
+                </div>
+
           </div>
         </div>
       </div>

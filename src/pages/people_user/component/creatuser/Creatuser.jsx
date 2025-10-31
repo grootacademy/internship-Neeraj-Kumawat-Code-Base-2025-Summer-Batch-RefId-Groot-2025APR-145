@@ -27,11 +27,11 @@ function Createuser() {
         }
 
         if (!inputdata.name || !inputdata.contactNo || !inputdata.registrdata) {
-            alert("❌ Please fill all required fields");
+            alert(" Please fill all required fields");
             return;
         }else if (inputdata.contactNo.length !==10){
             
-            alert(" ❌10 desires are required");
+            alert(" 10 desires are required");
         }
          else {
              //  Dispatch(addUser(inputdata))
@@ -43,7 +43,7 @@ function Createuser() {
                  alert(" Submit");
                  go("/users")
                  }else{
-                     alert("❌ Submit");
+                     alert(" Submit");
                  }
 
             }).catch((errer)=>console.log(errer))

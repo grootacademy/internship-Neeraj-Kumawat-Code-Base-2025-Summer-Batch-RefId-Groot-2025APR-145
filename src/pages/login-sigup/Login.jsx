@@ -11,17 +11,17 @@ function Login() {
   const navigate = useNavigate();
   const [Togelvarifyotp, setTogelvarifyotp] = useState(true)
 
-  // useEffect(() => {
-  //   const userData = JSON.parse(localStorage.getItem('user'));
-  //   if (userData) {
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem('user'));
+    if (userData) {
 
-  //     if (userData.role === 'admin') {
-  //       navigate('/admin');
-  //     } else {
-  //       navigate('/user');
-  //     }
-  //   }
-  // }, [navigate]);
+      if (userData.role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/user');
+      }
+    }
+  }, [navigate]);
 
   // Handle input changes
   const handleInput = (e) => {
@@ -38,7 +38,7 @@ function Login() {
 
     try {
       // Try password login first
-      const res = await axios.post("http://localhost:5000/login", inputdata);
+      const res = await axios.post("https://classplut2.onrender.com/login", inputdata);
       const { token, email, role } = res.data;
 
       // Save to localStorage
@@ -50,7 +50,7 @@ function Login() {
     } catch (err) {
       // If password login failed, try OTP
       try {
-        const otpRes = await axios.post("http://localhost:5000/request-otp", inputdata);
+        const otpRes = await axios.post("https://classplut2.onrender.com/request-otp", inputdata);
         toast.success(otpRes.data.msg);
         // navigate("/verify-otp", { state: { email: inputdata.email } });
         setTogelvarifyotp(false)
@@ -70,7 +70,7 @@ function Login() {
     e.preventDefault();
 
     axios
-      .post("http://localhost:5000/verify-otp", {
+      .post("https://classplut2.onrender.com/verify-otp", {
         email,
         otp
       })
@@ -167,10 +167,10 @@ function Login() {
 
           <div className="flex items-center justify-center min-h-screen">
             <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-              <h2 className="text-2xl font-bold text-center mb-4">Verify OTP</h2>
+              <h2 className="text-2xl font-bold text-center mb-4">Verify OTP </h2>
               <form onSubmit={handleOTPVerify} className="space-y-4">
                 <div>
-                  {/* <label className="block text-gray-700 mb-2">Enter OTP sent to {email}</label> */}
+                  <label className="block text-gray-700 mb-2">Enter OTP sent to {email}</label>
                   <input
                     type="text"
                     onChange={(e) => setOtp(e.target.value)}
@@ -195,3 +195,4 @@ function Login() {
 }
 
 export default Login;
+

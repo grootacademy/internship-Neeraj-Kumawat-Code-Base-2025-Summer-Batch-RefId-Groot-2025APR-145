@@ -131,13 +131,13 @@ function App() {
       <ToastContainer/>
       <Routes>
         {/*  Public Route */}
-        <Route path="/admin" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/singup" element={<Singup />} />
         {/* <Route path="/verify-otp" element={<OtpVerify />} /> */}
 
         
         <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
-          <Route path="/" element={<Applayout />}>
+          <Route path="/admin" element={<Applayout />}>
             <Route index element={<Dashbord />} />
             <Route path="courses" element={<Courses />} />
             <Route path="coursesdetales" element={<Exproldetal />} />

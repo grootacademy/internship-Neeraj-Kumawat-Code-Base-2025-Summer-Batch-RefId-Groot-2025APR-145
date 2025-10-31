@@ -23,6 +23,9 @@ function ExplorUser_Course() {
     //         setContentleanth(data.vdata.length);
     //     }
     // };
+    let amount = Coursedata.CruntPrice - Coursedata.Discountrice
+    let incgst = (amount * 18) / 100
+    let totleamountprice = amount + incgst
 
     useEffect(() => {
         if (Coursedata && Object.keys(Coursedata).length > 0) {
@@ -52,7 +55,7 @@ function ExplorUser_Course() {
             <aside className="w-full lg:w-64 bg-white border-r  flex-col">
                 <div className="p-4  text-blue-600 bg-blue-50 font-medium border-l-4 border-blue-500 ">Overview</div>
                 <div className="p-4 cursor-pointer" onClick={() => navigate("/user/ExplorCourse/content", { state: Coursedata })
-}>Content</div> 
+                }>Content</div>
             </aside>
             <main className="w-full  space-y-8">
                 {/* Batch Info */}
@@ -211,12 +214,14 @@ function ExplorUser_Course() {
                 {/* ===== Price Details ===== */}
                 <div className="text-sm space-y-2">
                     <h3 className="font-semibold text-gray-700">PRICE DETAILS</h3>
-                    <div className="flex justify-between"><span>Internet Handling</span><span>₹ 41</span></div>
-                    <div className="flex justify-between"><span>Amount Payable</span><span>₹ 1,551</span></div>
-                    <div className="flex justify-between"><span>Course Price</span><span>₹ {Coursedata.CruntPrice}</span></div>
-                    <div className="flex justify-between"><span>G.S.T. (18%)</span><span>+ ₹ {Math.round((Coursedata.CruntPrice || 0) * 0.18)}</span></div>
-                    <div className="flex justify-between"><span>Discount</span><span>- ₹ {Coursedata.Discountrice}</span></div>
+                    {/* <div className="flex justify-between"><span>Internet Handling</span><span>₹ 41</span></div> */}
+                    {/* <div className="flex justify-between"><span>Amount Payable</span><span>₹ 1,551</span></div> */}
+                    <div className="flex justify-between"><span>Course Price</span><span>₹ {Coursedata.CruntPrice}-{Coursedata.Discountrice}={amount}</span></div>
+                    <div className="flex justify-between"><span>G.S.T. (18%)</span><span>+ ₹ {incgst}</span></div>
+                    {/* <div className="flex justify-between"><span>Discount</span><span>- ₹ {data.Discountrice}</span></div> */}
                     <div className="flex justify-between"><span>Platform Fee</span><span>+ ₹ 10</span></div>
+                    <div className="flex justify-between"><span>Totle Fees</span><span>{totleamountprice + 10}</span></div>
+
                 </div>
 
                 {/* ===== Buy Now Button ===== */}
@@ -224,7 +229,7 @@ function ExplorUser_Course() {
                     onClick={handleBuyNow}
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold"
                 >
-                    💳 Buy Now
+                     Buy Now
                 </button>
 
                 <p className="text-xs text-gray-400">
