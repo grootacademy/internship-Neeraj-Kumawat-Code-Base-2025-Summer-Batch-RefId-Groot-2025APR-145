@@ -64,7 +64,7 @@ function User() {
 
   let livego = (e) =>{
     e.preventDefault();
-     window.location.href = "/user/UserWatchLive"
+     window.location.href("/user/UserWatchLive")
   }
   return (
     <div className="flex flex-col min-h-screen bg-[#f8fafc]">
