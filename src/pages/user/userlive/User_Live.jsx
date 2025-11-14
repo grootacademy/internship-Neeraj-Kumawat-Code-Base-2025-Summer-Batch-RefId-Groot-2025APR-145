@@ -4,65 +4,84 @@ import { FaMicrophone, FaMicrophoneSlash, FaVideo, FaVideoSlash, FaExpand, FaPho
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
-const socket = io("https://classplut2.onrender.com");
+const socket = io("http://localhost:5000");
 
 function UserWatchLive() {
   const videoRef = useRef(null);
+  const peerRef = useRef(null);
   const [isMuted, setIsMuted] = useState(true);
   const [videoOn, setVideoOn] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [user, setuser] = useState([])
 
   useEffect(() => {
-    axios.get("https://classplut2.onrender.com/profile", { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }).then((res) => {
+    axios.get("http://localhost:5000/profile", { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }).then((res) => {
       // console.log(res.data.data);
       setuser(res.data.data);
     }).catch((error) => console.log(error))
   }, []);
 
   
+useEffect(() => {
+  socket.emit("role", "user");
+  socket.emit("new-viewer");
 
-  useEffect(() => {
+  const peer = new RTCPeerConnection({
+    iceServers: [
+      { urls: "stun:stun.l.google.com:19302" }
+    ]
+  });
 
+  peerRef.current = peer;
 
-    socket.emit("role", "user");
-
-    let peer = new RTCPeerConnection();
-
-
-    peer.ontrack = (event) => {
+  peer.ontrack = (event) => {
+    if (videoRef.current) {
       videoRef.current.srcObject = event.streams[0];
-    };
+    }
+  };
 
-    socket.on("offer", async ({ offer, from }) => {
+  peer.onicecandidate = (event) => {
+    if (event.candidate) {
+      socket.emit("ice-candidate", {
+        candidate: event.candidate,
+        from: socket.id
+      });
+    }
+  };
+
+  socket.on("offer", async ({ offer }) => {
+    try {
       await peer.setRemoteDescription(new RTCSessionDescription(offer));
       const answer = await peer.createAnswer();
       await peer.setLocalDescription(answer);
 
-      socket.emit("answer", { answer, to: from });
-    });
+      socket.emit("answer", {
+        answer,
+        userId: socket.id
+      });
+    } catch (error) {
+      console.error("Offer error:", error);
+    }
+  });
 
-    peer.onicecandidate = (event) => {
-      if (event.candidate) {
-        socket.emit("ice-candidate", {
-          candidate: event.candidate,
-          to: "admin",
-        });
-      }
-    };
-
-    socket.on("ice-candidate", async ({ candidate }) => {
+  socket.on("ice-candidate", async ({ candidate }) => {
+    try {
       if (candidate) {
         await peer.addIceCandidate(new RTCIceCandidate(candidate));
       }
-    });
+    } catch (err) {
+      console.error("ICE error:", err);
+    }
+  });
 
-    
+  return () => {
+    peer.close();
+    socket.off("offer");
+    socket.off("ice-candidate");
+  };
+}, []);
 
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
+
 
   const toggleFullscreen = () => {
     if (!isFullscreen) {

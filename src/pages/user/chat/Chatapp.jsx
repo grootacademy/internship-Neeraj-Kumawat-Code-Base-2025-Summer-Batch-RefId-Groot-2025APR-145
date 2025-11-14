@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 
-const socket = io("https://classplut2.onrender.com");
+const socket = io("http://localhost:5000");
 
 export default function Chat() {
   const [message, setMessage] = useState("");
@@ -33,7 +33,7 @@ export default function Chat() {
 
   useEffect(() => {
     axios
-      .get("https://classplut2.onrender.com/profile", {
+      .get("http://localhost:5000/profile", {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((res) => {
@@ -58,7 +58,7 @@ export default function Chat() {
   
   useEffect(() => {
     axios
-      .get("https://classplut2.onrender.com/messages")
+      .get("http://localhost:5000/messages")
       .then((res) => setMessages(res.data))
       .catch((err) => console.log("Error loading messages:", err));
   }, []);

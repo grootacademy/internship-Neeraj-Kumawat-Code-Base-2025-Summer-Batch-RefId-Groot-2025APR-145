@@ -47,7 +47,7 @@ function EditCourse() {
         }
 
         try {
-            const res = await axios.put("https://classplut2.onrender.com/updatecourse", formData, {
+            const res = await axios.put("http://localhost:5000/updatecourse", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -223,7 +223,7 @@ function EditCourse() {
                     <div className='mx-auto'>
                         <label className='font-bold block '>Current Image:</label><br />
                         <img
-                            src={imageFile ? URL.createObjectURL(imageFile) : `https://classplut2.onrender.com/${courseData.imagePath}`}
+                            src={imageFile ? URL.createObjectURL(imageFile) : `http://localhost:5000/${courseData.imagePath}`}
                             alt="Course"
                             className='border p-2 rounded w-96 '
                             width={150}

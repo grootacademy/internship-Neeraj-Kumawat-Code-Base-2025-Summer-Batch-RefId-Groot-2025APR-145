@@ -41,7 +41,7 @@ function Creatbatches() {
             return;
         }
 
-        axios.post("https://classplut2.onrender.com/batch", inputdata).then((res) => {
+        axios.post("http://localhost:5000/batch", inputdata).then((res) => {
             alert(res.data.msg,"jyju")
         
         }).catch((errer => console.log(errer)))

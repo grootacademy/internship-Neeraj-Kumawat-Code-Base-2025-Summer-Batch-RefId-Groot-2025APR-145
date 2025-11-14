@@ -2,7 +2,7 @@ import { io } from "socket.io-client";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const socket = io("https://classplut2.onrender.com");
+const socket = io("http://localhost:5000");
 
 function UserDashboard() {
   const [notification, setNotification] = useState(null);
@@ -12,7 +12,7 @@ function UserDashboard() {
   useEffect(() => {
     async function getBatchesData() {
       try {
-        const res = await axios.get("https://classplut2.onrender.com/userBatches", {
+        const res = await axios.get("http://localhost:5000/userBatches", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setBatches(res.data.batch || []);

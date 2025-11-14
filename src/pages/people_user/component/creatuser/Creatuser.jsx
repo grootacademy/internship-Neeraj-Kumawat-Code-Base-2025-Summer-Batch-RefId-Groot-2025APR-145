@@ -37,7 +37,7 @@ function Createuser() {
              //  Dispatch(addUser(inputdata))
              //  go("/users")
              
-             axios.post("https://classplut2.onrender.com/users",inputdata).then((res)=>{
+             axios.post("http://localhost:5000/users",inputdata).then((res)=>{
                  // alert(res.data.msg)
                  if(res.data.status=== true){
                  alert(" Submit");

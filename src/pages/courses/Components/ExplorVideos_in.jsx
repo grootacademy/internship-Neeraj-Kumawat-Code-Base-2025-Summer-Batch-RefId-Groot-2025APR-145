@@ -19,7 +19,7 @@ function ExplorVideos_in() {
 
     const fetchVideos = async () => {
         try {
-            let res = await fetch("https://classplut2.onrender.com/getvideos");
+            let res = await fetch("http://localhost:5000/getvideos");
             let data = await res.json();
             if (data.status) {
                 const filteredVideos = data.data.filter(video => video.CourseId === courseData._id);
@@ -45,7 +45,7 @@ function ExplorVideos_in() {
         formData.append("courseId", courseData._id);
         formData.append("Publish", true);
 
-        let res = await fetch("https://classplut2.onrender.com/videos", {
+        let res = await fetch("http://localhost:5000/videos", {
             method: "POST",
             body: formData,
         });
@@ -65,7 +65,7 @@ function ExplorVideos_in() {
         if (!window.confirm("Are you sure you want to delete this video?")) return;
 
         try {
-            const res = await fetch("https://classplut2.onrender.com/deletevideo", {
+            const res = await fetch("http://localhost:5000/deletevideo", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id }),
@@ -95,7 +95,7 @@ function ExplorVideos_in() {
         }
 
         try {
-            const res = await fetch("https://classplut2.onrender.com/updatevideotitle", {
+            const res = await fetch("http://localhost:5000/updatevideotitle", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id, title: editedTitle }),
@@ -118,7 +118,7 @@ function ExplorVideos_in() {
         
 
         try {
-            const res = await fetch("https://classplut2.onrender.com/updatevideopublish", {
+            const res = await fetch("http://localhost:5000/updatevideopublish", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id, publish: true }),
@@ -140,7 +140,7 @@ function ExplorVideos_in() {
         
 
         try {
-            const res = await fetch("https://classplut2.onrender.com/updatevideopublish", {
+            const res = await fetch("http://localhost:5000/updatevideopublish", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id, publish: false }),
@@ -260,7 +260,7 @@ function ExplorVideos_in() {
                             <video
                                 className="w-full h-96 max-w-4xl mx-auto rounded-md shadow"
                                 controls
-                                src={`https://classplut2.onrender.com/${video.path}`}
+                                src={`http://localhost:5000/${video.path}`}
                             />
                         </div>
                     ))

@@ -93,7 +93,7 @@
 
 //       try {
 //         const res = await axios.post(
-//           "https://classplut2.onrender.com/liveclasssvideos",
+//           "http://localhost:5000/liveclasssvideos",
 //           formData,
 //           Liveclass_Id && formData.append("Liveclass_Id", Liveclass_Id),
 //           { headers: { "Content-Type": "multipart/form-data" } }
@@ -315,7 +315,7 @@ import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const socket = io("https://classplut2.onrender.com");
+const socket = io("http://localhost:5000");
 
 const LiveClass = ({ onClick, Liveclass_Id }) => {
   const [liveClassTitle, setLiveClassTitle] = useState("");
@@ -333,6 +333,7 @@ const LiveClass = ({ onClick, Liveclass_Id }) => {
   const mediaRecorderRef = useRef(null);
   const recordedChunksRef = useRef([]);
   const streamRef = useRef(null);
+  const peersRef = useRef({});
 
   // Helper to filter unique devices
   const filterDevices = (devices, kind) => {
@@ -394,7 +395,7 @@ const LiveClass = ({ onClick, Liveclass_Id }) => {
       if (Liveclass_Id) formData.append("Liveclass_Id", Liveclass_Id);
 
       try {
-        const res = await axios.post("https://classplut2.onrender.com/liveclasssvideos", formData, {
+        const res = await axios.post("http://localhost:5000/liveclasssvideos", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         res.data.status
@@ -410,52 +411,65 @@ const LiveClass = ({ onClick, Liveclass_Id }) => {
   };
 
   // Start live session
-  const handleStartLive = async () => {
+const handleStartLive = async () => {
+  if (!liveClassTitle.trim()) return alert("Please enter a class title");
+  setIsLive(true);
 
-    if (!liveClassTitle.trim()) return alert("Please enter a class title");
-    setIsLive(true);
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { deviceId: selectedCamera },
+      audio: { deviceId: selectedMic },
+    });
 
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { deviceId: selectedCamera },
-        audio: { deviceId: selectedMic },
-      });
-      streamRef.current = stream;
-      webcamRef.current.srcObject = stream;
-      handleStartRecording()
-      // Notify backend
-      socket.emit("role", "admin");
+    streamRef.current = stream;
+    webcamRef.current.srcObject = stream;
 
-      socket.emit("live-start", Liveclass_Id);
-      console.log("Live started");
-      // Handle viewers
-      socket.on("new-viewer", async (viewerId) => {
-        const peer = new RTCPeerConnection();
-        stream.getTracks().forEach((track) => peer.addTrack(track, stream));
+    handleStartRecording();
 
-        peer.onicecandidate = (event) => {
-          if (event.candidate) {
-            socket.emit("ice-candidate", { candidate: event.candidate, to: viewerId });
-          }
-        };
+    socket.emit("role", "admin");
+    socket.emit("live-start", Liveclass_Id);
 
-        const offer = await peer.createOffer();
-        await peer.setLocalDescription(offer);
-        socket.emit("offer", { offer, to: viewerId });
+    socket.on("new-viewer", async (viewerId) => {
+      console.log("Viewer joined:", viewerId);
 
-        socket.on("answer", async ({ answer, from }) => {
-          if (from === viewerId) await peer.setRemoteDescription(answer);
-        });
-
-        socket.on("ice-candidate", async ({ candidate, from }) => {
-          if (from === viewerId && candidate) await peer.addIceCandidate(candidate);
-        });
+      const peer = new RTCPeerConnection({
+        iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
       });
 
-    } catch (err) {
-      console.error("Camera error:", err);
-    }
-  };
+      peersRef.current[viewerId] = peer;
+
+      stream.getTracks().forEach((track) => peer.addTrack(track, stream));
+
+      peer.onicecandidate = (event) => {
+        if (event.candidate) {
+          socket.emit("ice-candidate", { candidate: event.candidate, to: viewerId });
+        }
+      };
+
+      const offer = await peer.createOffer();
+      await peer.setLocalDescription(offer);
+
+      socket.emit("offer", { offer, to: viewerId });
+    });
+
+    socket.on("answer", async ({ answer, from }) => {
+      if (peersRef.current[from]) {
+        await peersRef.current[from].setRemoteDescription(answer);
+      }
+    });
+
+    socket.on("ice-candidate", async ({ candidate, from }) => {
+      if (peersRef.current[from] && candidate) {
+        await peersRef.current[from].addIceCandidate(candidate);
+      }
+    });
+
+  } catch (err) {
+    console.error("Camera error:", err);
+    toast.error("Camera / Mic access failed!");
+  }
+};
+
 
 
 

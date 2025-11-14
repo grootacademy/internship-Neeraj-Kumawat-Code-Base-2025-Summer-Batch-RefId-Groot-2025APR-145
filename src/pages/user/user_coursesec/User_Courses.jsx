@@ -20,7 +20,7 @@ function User_Courses() {
 
     // Fetch purchased courses
     useEffect(() => {
-        axios.get("https://classplut2.onrender.com/checkoutget", {
+        axios.get("http://localhost:5000/checkoutget", {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         }).then(res => setinput(res.data.data))
             .catch(err => console.log(err));
@@ -28,7 +28,7 @@ function User_Courses() {
 
     // Fetch all courses
     useEffect(() => {
-        axios.get("https://classplut2.onrender.com/getcourses")
+        axios.get("http://localhost:5000/getcourses")
             .then(res => setgetcoursedata(res.data.coursedata))
             .catch(err => console.log(err));
     }, []);
@@ -81,7 +81,7 @@ function User_Courses() {
                                 {index + 1}
                             </div>
                             <img
-                                src={course.imagePath ? `https://classplut2.onrender.com/${course.imagePath}` : "https://via.placeholder.com/320x180"}
+                                src={course.imagePath ? `http://localhost:5000/${course.imagePath}` : "https://via.placeholder.com/320x180"}
                                 className="w-full h-38 object-cover p-2 pt-5"
                                 alt={course.Coursename}
                             />
@@ -113,7 +113,7 @@ function User_Courses() {
                         whileHover="hover"
                     >
                         <img
-                            src={course.imagePath ? `https://classplut2.onrender.com/${course.imagePath}` : "https://via.placeholder.com/320x180"}
+                            src={course.imagePath ? `http://localhost:5000/${course.imagePath}` : "https://via.placeholder.com/320x180"}
                             className="w-full h-48 object-cover p-2"
                             alt={course.Coursename}
                         />
@@ -144,7 +144,7 @@ function User_Courses() {
                         whileHover="hover"
                     >
                         <img
-                            src={course.imagePath ? `https://classplut2.onrender.com/${course.imagePath}` : "https://via.placeholder.com/320x180"}
+                            src={course.imagePath ? `http://localhost:5000/${course.imagePath}` : "https://via.placeholder.com/320x180"}
                             className="w-full h-48 object-cover cursor-pointer p-2"
                             alt={course.Coursename}
                             onClick={() => expandmore(course)}

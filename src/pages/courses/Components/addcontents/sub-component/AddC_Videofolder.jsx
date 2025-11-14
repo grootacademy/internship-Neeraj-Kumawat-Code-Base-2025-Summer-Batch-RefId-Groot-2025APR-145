@@ -8,7 +8,7 @@
 
 //     // Backend se videos laane ka function
 //     const fetchVideos = async () => {
-//         let res = await fetch("https://classplut2.onrender.com/getvideos");
+//         let res = await fetch("http://localhost:5000/getvideos");
 //         let data = await res.json();
 //         if (data.status) {
 //             setVideos(data.vdata);
@@ -31,7 +31,7 @@
 //         const formData = new FormData();
 //         formData.append("video", file);
 
-//         let res = await fetch("https://classplut2.onrender.com/videos", {
+//         let res = await fetch("http://localhost:5000/videos", {
 //             method: "POST",
 //             body: formData,
 //         });
@@ -106,7 +106,7 @@
 //                             >
 //                                 <h4 className="text-lg font-semibold mb-2">{vid.title}</h4>
 //                                 <div className="flex justify-between">
-//                                     <video className="w-40 rounded" controls src={`https://classplut2.onrender.com/${vid.path}`} />
+//                                     <video className="w-40 rounded" controls src={`http://localhost:5000/${vid.path}`} />
 //                                     <input type="checkbox"   value={vid._id} onClick={VideoValue} />
 //                                 </div>
 //                             </div>
@@ -138,7 +138,7 @@ const AddC_Videofolder = ({ onClick, folderId }) => {
 
     // Fetch all videos
     const fetchVideos = async () => {
-        let res = await fetch("https://classplut2.onrender.com/getvideos");
+        let res = await fetch("http://localhost:5000/getvideos");
         let data = await res.json();
         if (data.status) {
             setVideos(data.data);
@@ -160,7 +160,7 @@ const AddC_Videofolder = ({ onClick, folderId }) => {
         const formData = new FormData();
         formData.append("video", file);
 
-        let res = await fetch("https://classplut2.onrender.com/videos", {
+        let res = await fetch("http://localhost:5000/videos", {
             method: "POST",
             body: formData,
         });
@@ -197,7 +197,7 @@ const AddC_Videofolder = ({ onClick, folderId }) => {
             videoData: {
                 id: video._id,
                 title: video.title,
-                path: `https://classplut2.onrender.com/${video.path}`
+                path: `http://localhost:5000/${video.path}`
             }
         }));
     });
@@ -240,7 +240,7 @@ const AddC_Videofolder = ({ onClick, folderId }) => {
                             <div key={index} className="mb-6 p-4">
                                 <h4 className="text-lg font-semibold mb-2">{vid.title}</h4>
                                 <div className="flex justify-between">
-                                    <video className="w-40 rounded" controls src={`https://classplut2.onrender.com/${vid.path}`} />
+                                    <video className="w-40 rounded" controls src={`http://localhost:5000/${vid.path}`} />
                                     <input
                                         type="checkbox"
                                         value={vid._id}

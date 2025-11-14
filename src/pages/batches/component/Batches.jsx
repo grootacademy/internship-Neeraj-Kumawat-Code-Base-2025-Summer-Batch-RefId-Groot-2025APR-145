@@ -13,7 +13,7 @@ const Batches = () => {
 
     async function getbatchesdata() {
         try {
-            axios.get("https://classplut2.onrender.com/getbatch").then((res) => {
+            axios.get("http://localhost:5000/getbatch").then((res) => {
                 setbatches(res.data.batch)
                 setAllbatches(res.data.batch)
             })

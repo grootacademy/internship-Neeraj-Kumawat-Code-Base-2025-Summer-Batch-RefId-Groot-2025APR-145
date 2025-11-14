@@ -19,7 +19,7 @@ function Users_info() {
   // Fetch users
   const fetchUsersFromDB = async () => {
     try {
-      const res = await axios.get("https://classplut2.onrender.com/allchatusers");
+      const res = await axios.get("https://newrepopxcrm.onrender.com/allchatusers");
       setUsersData(res.data.data);
       setAllUsers(res.data.data);
     } catch (error) {

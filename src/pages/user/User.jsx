@@ -6,7 +6,7 @@ import axios from 'axios';
 import { io } from "socket.io-client";
 import { FaRocketchat } from 'react-icons/fa6';
 import { RiVideoChatLine } from 'react-icons/ri';
-const socket = io("https://classplut2.onrender.com");
+const socket = io("http://localhost:5000");
 function User() {
   const [notifications, setNotifications] = useState(false);
   const [userprofile, setuserprofile] = useState(false)
@@ -18,7 +18,7 @@ function User() {
   useEffect(() => {
     async function getBatchesData() {
       try {
-        const res = await axios.get("https://classplut2.onrender.com/userBatches", {
+        const res = await axios.get("http://localhost:5000/userBatches", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setBatches(res.data.batch || []);
@@ -56,7 +56,7 @@ function User() {
   }, [batches]);
 
   useEffect(() => {
-    axios.get("https://classplut2.onrender.com/profile", { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }).then((res) => {
+    axios.get("http://localhost:5000/profile", { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }).then((res) => {
       // console.log(res.data.data);
       setUsers(res.data.data);
     }).catch((error) => console.log(error))

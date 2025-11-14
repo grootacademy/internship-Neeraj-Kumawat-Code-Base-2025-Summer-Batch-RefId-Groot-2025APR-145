@@ -231,7 +231,7 @@
 
   let data;
   useEffect(() => {
-      axios.get("https://classplut2.onrender.com/getcourses").then((res) => {
+      axios.get("http://localhost:5000/getcourses").then((res) => {
         
         setgetcoursedata(res.data.coursedata)
       }).catch((error) => console.log(error))
@@ -255,7 +255,7 @@
               className="bg-white shadow-lg rounded-2xl w-[300px] overflow-hidden hover:shadow-2xl transition"
             >
               <img
-                src={`https://classplut2.onrender.com/${course.imagePath}` || "https://via.placeholder.com/320x180"}
+                src={`http://localhost:5000/${course.imagePath}` || "https://via.placeholder.com/320x180"}
                 className="w-full h-48 object-cover cursor-pointer"
                 alt={course.Coursename}
                 onClick={() => expandmore(course)}

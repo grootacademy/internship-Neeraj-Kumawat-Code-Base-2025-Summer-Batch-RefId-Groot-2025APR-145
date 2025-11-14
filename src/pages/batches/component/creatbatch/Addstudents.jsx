@@ -21,7 +21,7 @@ const AddStudents = () => {
 
     const fetchUsers = async () => {
         try {
-            const res = await axios.get("https://classplut2.onrender.com/getusers");
+            const res = await axios.get("http://localhost:5000/getusers");
             setAllUsers(res.data.data);
         } catch (error) {
             console.error("Error fetching users:", error);
@@ -37,7 +37,7 @@ const AddStudents = () => {
     const handleSubmit = async () => {
         if (selectedUserIds.length > 0 && batch_id) {
             try {
-                const res = await axios.post("https://classplut2.onrender.com/Updatebatchid", {
+                const res = await axios.post("http://localhost:5000/Updatebatchid", {
                     userIds: selectedUserIds,
                     courseId: batch_id,
                 }).then((res) => {

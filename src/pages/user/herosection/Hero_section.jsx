@@ -11,7 +11,7 @@ function Hero_section() {
 
   useEffect(() => {
     axios
-      .get("https://classplut2.onrender.com/getcourses")
+      .get("http://localhost:5000/getcourses")
       .then((res) => {
         setgetcoursedata(res.data.coursedata);
       })
@@ -149,7 +149,7 @@ function Hero_section() {
               <img
                 src={
                   course.imagePath
-                    ? `https://classplut2.onrender.com/${course.imagePath}`
+                    ? `http://localhost:5000/${course.imagePath}`
                     : "https://via.placeholder.com/320x180"
                 }
                 className="w-full h-64 object-cover cursor-pointer"

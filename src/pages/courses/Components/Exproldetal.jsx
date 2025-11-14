@@ -32,7 +32,7 @@ function Exproldetal() {
     let Coursedata = location.state || []
 
     const fetchVideos = async () => {
-        let res = await fetch("https://classplut2.onrender.com/getlivevideos");
+        let res = await fetch("http://localhost:5000/getlivevideos");
         let data = await res.json();
         if (data.status) {
             setContentleanth(data.vdata.length)
@@ -71,7 +71,7 @@ function Exproldetal() {
 
 
     let Deletcourse = () => {
-        axios.post("https://classplut2.onrender.com/deletecourse", { id: Coursedata._id })
+        axios.post("http://localhost:5000/deletecourse", { id: Coursedata._id })
             .then((res) => {
                 if (res.data.status) {
                     alert(res.data.msg)
@@ -150,7 +150,7 @@ function Exproldetal() {
                         {/* Course Image */}
                         <img
                             className="w-full max-w-2xl rounded-xl border border-gray-200"
-                            src={`https://classplut2.onrender.com/${Coursedata.imagePath}`}
+                            src={`http://localhost:5000/${Coursedata.imagePath}`}
                             alt="Course Banner"
                         />
 

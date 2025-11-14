@@ -38,7 +38,7 @@ function Login() {
 
     try {
       // Try password login first
-      const res = await axios.post("https://classplut2.onrender.com/login", inputdata);
+      const res = await axios.post("http://localhost:5000/login", inputdata);
       const { token, email, role } = res.data;
 
       // Save to localStorage
@@ -50,7 +50,7 @@ function Login() {
     } catch (err) {
       // If password login failed, try OTP
       try {
-        const otpRes = await axios.post("https://classplut2.onrender.com/request-otp", inputdata);
+        const otpRes = await axios.post("http://localhost:5000/request-otp", inputdata);
         toast.success(otpRes.data.msg);
         // navigate("/verify-otp", { state: { email: inputdata.email } });
         setTogelvarifyotp(false)
@@ -70,7 +70,7 @@ function Login() {
     e.preventDefault();
 
     axios
-      .post("https://classplut2.onrender.com/verify-otp", {
+      .post("http://localhost:5000/verify-otp", {
         email,
         otp
       })

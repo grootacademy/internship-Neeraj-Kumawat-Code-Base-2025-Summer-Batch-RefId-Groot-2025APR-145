@@ -30,7 +30,7 @@ function Edit_Batch() {
 
 
     useEffect(() => {
-        axios.get("https://classplut2.onrender.com/getusers")
+        axios.get("http://localhost:5000/getusers")
             .then((res) => {
                 // console.log(res.data); // Optional: log to see what you get
                 setAllUsers(res.data.data); // Update with actual key if different
@@ -43,7 +43,7 @@ function Edit_Batch() {
     const handleSubmit = (e) => {
         e.preventDefault();
         // console.log('Updated batch:', formData);
-        axios.post("https://classplut2.onrender.com/edit_batch", { formData }).then((res) => {
+        axios.post("http://localhost:5000/edit_batch", { formData }).then((res) => {
             if (res.data.status) {
                 toast.success(res.data.msg)
                 setTimeout(() => {

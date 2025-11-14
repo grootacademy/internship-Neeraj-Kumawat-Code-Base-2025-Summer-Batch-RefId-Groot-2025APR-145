@@ -28,13 +28,13 @@ function Explore_User() {
     const [getcoursedata, setgetcoursedata] = useState([]);
     const [Users, setUsers] = useState([]);
     useEffect(() => {
-        axios.get("https://classplut2.onrender.com/checkoutget", { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }).then((res) => {
+        axios.get("http://localhost:5000/checkoutget", { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }).then((res) => {
             setinput(res.data.data);
         });
     }, [])
 
     useEffect(() => {
-        axios.get("https://classplut2.onrender.com/getcourses").then((res) => {
+        axios.get("http://localhost:5000/getcourses").then((res) => {
 
             setgetcoursedata(res.data.coursedata)
         }).catch((error) => console.log(error))
@@ -49,7 +49,7 @@ function Explore_User() {
 console.log(input);
 
 useEffect(() => {
-    axios.get("https://classplut2.onrender.com/profile", { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }).then((res) => {
+    axios.get("http://localhost:5000/profile", { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }).then((res) => {
         console.log(res.data.data);
         setUsers(res.data.data);
     }).catch((error) => console.log(error))
@@ -131,7 +131,7 @@ useEffect(() => {
                                     key={course._id || index}
                                 >
                                     <img
-                                        src={`https://classplut2.onrender.com/${course.imagePath}` || "https://via.placeholder.com/320x180"}
+                                        src={`http://localhost:5000/${course.imagePath}` || "https://via.placeholder.com/320x180"}
                                         className="w-full h-48 object-cover p-2"
                                         alt={course.Coursename}
 

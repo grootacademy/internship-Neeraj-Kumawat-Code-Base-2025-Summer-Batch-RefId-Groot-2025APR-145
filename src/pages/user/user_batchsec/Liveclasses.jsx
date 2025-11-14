@@ -6,7 +6,7 @@ function Liveclasses() {
 
     // Backend se videos laane ka function
     const fetchVideos = async () => {
-        let res = await fetch("https://classplut2.onrender.com/getlivevideos");
+        let res = await fetch("http://localhost:5000/getlivevideos");
         let data = await res.json();
         if (data.status) {
             setVideos(data.vdata);
@@ -34,7 +34,7 @@ function Liveclasses() {
                                     <video
                                         width="200"
                                         controls
-                                        src={`https://classplut2.onrender.com/${vid.path}`}
+                                        src={`http://localhost:5000/${vid.path}`}
                                     />
                                 </div>
                             ))

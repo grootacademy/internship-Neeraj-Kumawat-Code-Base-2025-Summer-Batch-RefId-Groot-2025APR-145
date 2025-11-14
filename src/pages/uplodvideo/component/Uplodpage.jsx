@@ -6,7 +6,7 @@ function VideoPage() {
 
   // Backend se videos laane ka function
   const fetchVideos = async () => {
-    let res = await fetch("https://classplut2.onrender.com/getlivevideos");
+    let res = await fetch("http://localhost:5000/getlivevideos");
     let data = await res.json();
     if (data.status) {
       setVideos(data.vdata);
@@ -29,7 +29,7 @@ function VideoPage() {
     const formData = new FormData();
     formData.append("video", file);
 
-    let res = await fetch("https://classplut2.onrender.com/videos", {
+    let res = await fetch("http://localhost:5000/videos", {
       method: "POST",
       body: formData,
     });
@@ -69,7 +69,7 @@ function VideoPage() {
             <video
               width="400"
               controls
-              src={`https://classplut2.onrender.com/${vid.path}`}
+              src={`http://localhost:5000/${vid.path}`}
             />
           </div>
         ))

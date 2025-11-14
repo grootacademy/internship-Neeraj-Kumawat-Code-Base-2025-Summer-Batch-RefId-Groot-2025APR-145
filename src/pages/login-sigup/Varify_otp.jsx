@@ -15,7 +15,7 @@
 //     e.preventDefault();
 
 //     axios
-//       .post("https://classplut2.onrender.com/verify-otp", {
+//       .post("http://localhost:5000/verify-otp", {
 //         email,
 //         otp
 //       })
@@ -91,7 +91,7 @@
 // //   const { email } = location.state || {};
   
 // //   useEffect(() => {
-// //   axios.get("https://classplut2.onrender.com/getuserrole").then((res) => {
+// //   axios.get("http://localhost:5000/getuserrole").then((res) => {
 // //     setuserdata(res.data.data)
 // //     console.log(userdata)
 // //   }).catch((error) => console.log(error))
@@ -102,7 +102,7 @@
 // //   e.preventDefault();
 
 // //   try {
-// //     const response = await axios.post("https://classplut2.onrender.com/verify-otp", {
+// //     const response = await axios.post("http://localhost:5000/verify-otp", {
 // //       email,
 // //       otp,
 // //     });

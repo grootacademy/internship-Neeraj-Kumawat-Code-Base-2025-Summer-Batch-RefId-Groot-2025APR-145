@@ -21,7 +21,7 @@ function ExplorUser_Course_Contant() {
     }, [Coursedata]);
 
     useEffect(() => {
-        fetch("https://classplut2.onrender.com/getlivevideos")
+        fetch("http://localhost:5000/getlivevideos")
             .then(res => res.json())
             .then(data => {
                 if (data.status) {

@@ -5,14 +5,14 @@ function User_Buy_Courses() {
     const [input, setinput] =useState([])
     const [getcoursedata, setgetcoursedata] = useState([])
     useEffect(() => {
-    axios.get("https://classplut2.onrender.com/checkoutget",{headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }}).then((res) => {
+    axios.get("http://localhost:5000/checkoutget",{headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }}).then((res) => {
       console.log(res.data.data);
         setinput(res.data.data);
     });
   }, [])
 
      useEffect(() => {
-        axios.get("https://classplut2.onrender.com/getcourses").then((res) => {
+        axios.get("http://localhost:5000/getcourses").then((res) => {
 
             setgetcoursedata(res.data.coursedata)
         }).catch((error) => console.log(error))
@@ -32,7 +32,7 @@ function User_Buy_Courses() {
             {filterdata.map((course) => (
                 <div key={course._id} className="bg-white p-6 rounded-lg shadow-md">
                     <h2 className="text-xl font-semibold mb-2">{course.Coursename}</h2>
-                    <img src={`https://classplut2.onrender.com/${course.imagePath}`} alt="" />
+                    <img src={`http://localhost:5000/${course.imagePath}`} alt="" />
                     <p className="text-gray-600 mb-4">{course.Description}</p>
                     <p className="text-lg font-bold mb-4">Price: ${course.price}</p>
                 </div>

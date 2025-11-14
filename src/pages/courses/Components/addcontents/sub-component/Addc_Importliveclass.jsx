@@ -16,7 +16,7 @@ const Addc_Importliveclass = ({ onClick , folderId}) => {
     let dispatch =useDispatch()
 
     const fetchliveVideos = async () => {
-        let res = await fetch("https://classplut2.onrender.com/getlivevideos");
+        let res = await fetch("http://localhost:5000/getlivevideos");
         let data = await res.json();
         if (data.status) {
             setliveVideos(data.vdata);
@@ -49,7 +49,7 @@ const Addc_Importliveclass = ({ onClick , folderId}) => {
                 livedata: {
                     id: video._id,
                     title: video.title,
-                    path: `https://classplut2.onrender.com/${video.path}`
+                    path: `http://localhost:5000/${video.path}`
                 }
             }));
         });
@@ -82,7 +82,7 @@ const Addc_Importliveclass = ({ onClick , folderId}) => {
                         <div key={index} className="mb-6 p-4">
                             <h4 className="text-lg font-semibold mb-2">{vid.title}</h4>
                             <div className="flex justify-between">
-                                <video className="w-40 rounded" controls src={`https://classplut2.onrender.com/${vid.path}`} />
+                                <video className="w-40 rounded" controls src={`http://localhost:5000/${vid.path}`} />
                                 <input
                                     type="checkbox"
                                     value={vid._id}

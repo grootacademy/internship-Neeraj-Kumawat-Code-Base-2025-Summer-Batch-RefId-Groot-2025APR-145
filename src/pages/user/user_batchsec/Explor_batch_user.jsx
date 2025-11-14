@@ -15,7 +15,7 @@ function Explor_batch_user() {
 
 
   const fetchVideos = async () => {
-    let res = await fetch("https://classplut2.onrender.com/getlivevideos");
+    let res = await fetch("http://localhost:5000/getlivevideos");
     let data = await res.json();
     if (data.status) {
       setVideos(data.vdata);
@@ -74,7 +74,7 @@ function Explor_batch_user() {
             <video
               width="200"
               controls
-              src={`https://classplut2.onrender.com/${vid.path}`}
+              src={`http://localhost:5000/${vid.path}`}
               
               className="rounded-2xl w-80"
             />

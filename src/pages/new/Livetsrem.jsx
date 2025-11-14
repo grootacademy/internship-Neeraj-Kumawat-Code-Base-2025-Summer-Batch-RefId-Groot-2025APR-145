@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 
-const socket = io("https://classplut2.onrender.com");
+const socket = io("http://localhost:5000");
 
 function AdminLiveStream({ batchId }) {
   const videoRef = useRef(null);
@@ -30,7 +30,7 @@ function AdminLiveStream({ batchId }) {
           formData.append("batchId", batchId);
 
           // Send to backend
-          await fetch("https://classplut2.onrender.com/savelivevideo", {
+          await fetch("http://localhost:5000/savelivevideo", {
             method: "POST",
             body: formData,
           });

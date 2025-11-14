@@ -17,7 +17,7 @@ function ExplorUser_Course() {
     const Coursedata = location.state || [];
 
     // const fetchVideos = async () => {
-    //     let res = await fetch("https://classplut2.onrender.com/getlivevideos");
+    //     let res = await fetch("http://localhost:5000/getlivevideos");
     //     let data = await res.json();
     //     if (data.status) {
     //         setContentleanth(data.vdata.length);
@@ -72,7 +72,7 @@ function ExplorUser_Course() {
                     {/* Course Image */}
                     <img
                         className="w-full max-w-2xl rounded-xl border border-gray-200"
-                        src={`https://classplut2.onrender.com/${Coursedata.imagePath}`}
+                        src={`http://localhost:5000/${Coursedata.imagePath}`}
                         alt="Course Banner"
                     />
 

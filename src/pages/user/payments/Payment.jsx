@@ -8,7 +8,7 @@ function Payment() {
     const [usercheckoutdata, setUserCheckoutData] = useState([]);
 
     useEffect(() => {
-        axios.get("https://classplut2.onrender.com/checkoutget", { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }).then((res) => {
+        axios.get("http://localhost:5000/checkoutget", { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }).then((res) => {
             setUserCheckoutData(res.data.data);
         });
     }, [])

@@ -26,7 +26,7 @@ const AssStudentincourse = () => {
 
     async function getusesdataindb() {
         try {
-            let res = await axios.get("https://classplut2.onrender.com/getusers");
+            let res = await axios.get("http://localhost:5000/getusers");
             setAllUsers(res.data.getuser);
         } catch (error) {
             console.log(error);
@@ -43,7 +43,7 @@ const AssStudentincourse = () => {
     
    let hendlesubmit = () => {
   if (inputvalue.length > 0 && courseId) {
-    axios.post("https://classplut2.onrender.com/Addcourseinuser", {
+    axios.post("http://localhost:5000/Addcourseinuser", {
       userIds: inputvalue,
       courseId: courseId
     })

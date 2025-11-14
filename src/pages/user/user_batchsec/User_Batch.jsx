@@ -12,7 +12,7 @@ const User_Batch = () => {
 
     async function getbatchesdata() {
         try {
-            axios.get("https://classplut2.onrender.com/userBatches",{ headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }).then((res) => {
+            axios.get("http://localhost:5000/userBatches",{ headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }).then((res) => {
                 setbatches(res.data.batch)
                 // setAllbatches(res.data.batch)
             })

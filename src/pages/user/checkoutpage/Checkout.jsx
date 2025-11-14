@@ -56,7 +56,7 @@ const Checkout = () => {
     }
 
     const options = {
-      key: "rzp_test_zLBz5tT46J6rSB", //  Test Key only
+      key: "rzp_test_U3GGpYpzeFoRc5", //  Test Key only
       amount: parseInt(formData.totalAmount) * 100, // Convert to paise
       currency: "INR",
       name: "Web Mastery",
@@ -78,7 +78,7 @@ const Checkout = () => {
 
         try {
 
-          const res = await axios.post("https://classplut2.onrender.com/checkout", checkoutData, { headers: { Authorization: `Bearer ${token}` } }).then((res) => {
+          const res = await axios.post("http://localhost:5000/checkout", checkoutData, { headers: { Authorization: `Bearer ${token}` } }).then((res) => {
             toast.success(res.data.message);
           }).catch((error) => toast.error(error.response.data.message))
           alert(" Payment successful and data saved!");
@@ -189,7 +189,7 @@ const Checkout = () => {
 
           <img
             className="w-full rounded-lg mb-4"
-            src={`https://classplut2.onrender.com/${data.imagePath}`}
+            src={`http://localhost:5000/${data.imagePath}`}
             alt={data.Coursename}
           />
 

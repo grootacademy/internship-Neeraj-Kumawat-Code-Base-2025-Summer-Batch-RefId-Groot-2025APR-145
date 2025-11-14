@@ -116,7 +116,7 @@ function Add_Content() {
         if (!getdata) {
             toast.error("Select Folder.");
         } else {
-            axios.post("https://classplut2.onrender.com/course", formData, {
+            axios.post("http://localhost:5000/course", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 }

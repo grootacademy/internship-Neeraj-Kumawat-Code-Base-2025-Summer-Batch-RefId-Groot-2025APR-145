@@ -21,7 +21,7 @@ function Explorbatches() {
   const [moreOptions, setMoreOptions] = useState(false)
   let go = useNavigate()
   const fetchVideos = async () => {
-    let res = await fetch("https://classplut2.onrender.com/getlivevideos");
+    let res = await fetch("http://localhost:5000/getlivevideos");
     let data = await res.json();
     if (data.status) {
       setContentleanth(data.vdata.length)
@@ -37,7 +37,7 @@ function Explorbatches() {
   }, [batch]);
 
   useEffect(() => {
-    axios.get("https://classplut2.onrender.com/getusers")
+    axios.get("http://localhost:5000/getusers")
       .then((res) => {
         // console.log(res.data); // Optional: log to see what you get
         setAllUsers(res.data.data); // Update with actual key if different
@@ -51,7 +51,7 @@ function Explorbatches() {
   let batchid = batch._id
   // console.log(batchid)
   let Deletbatch = () => {
-    axios.post("https://classplut2.onrender.com/deletebatch", { batchid }).then((res) => {
+    axios.post("http://localhost:5000/deletebatch", { batchid }).then((res) => {
       if (res.data.status) {
         alert(res.data.msg)
         setTimeout(() => {
